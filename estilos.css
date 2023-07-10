@@ -1,5 +1,5 @@
 * {
-  margin: 0pxp;
+  margin: 0px;
 }
 
 .barraNav {
@@ -10,7 +10,7 @@
   color: black;
   font-size: 18px;
   padding: 5px;
-  margin: 0px;
+  margin-right: 0px;
 }
 
 .titleHome {

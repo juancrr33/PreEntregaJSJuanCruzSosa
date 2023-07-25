@@ -19,27 +19,34 @@ let cervezaStellaN = new Bebidas('Stella Negra x6', '0007', 'cerveza', 3000, 'St
 let cervezaHeinekenR = new Bebidas('Heineken Rubia x6', '0008', 'cerveza', 3300, 'Heineken Bebidas', '500')
 let cervezaHeinekenL = new Bebidas('Heineken Lager x6', '0009', 'cerveza', 3300, 'Heineken Bebidas', '500')
 
-tienda.push(vinoCattena)
-tienda.push(vinoGranEnemigo)
-tienda.push(vinoAngelica)
-tienda.push(vinoAlamos)
-tienda.push(vinoNicolasCattena)
-tienda.push(cervezaStellaN)
-tienda.push(cervezaStellaR)
-tienda.push(cervezaHeinekenR)
-tienda.push(cervezaHeinekenL)
+tienda.push(vinoCattena, vinoGranEnemigo, vinoAngelica, vinoAlamos, vinoNicolasCattena, cervezaHeinekenL, cervezaHeinekenR, cervezaStellaN, cervezaStellaR)
 
 
-let busquedaFilter2 = tienda.filter((bebidasObj) => bebidasObj.ml ==='500')
-let busquedaFilter = tienda.filter((bebidasObj) => bebidasObj.categoria ==='Bodega Cattena')
+let busquedaFilter2 = tienda.filter((bebidasObj) => bebidasObj.ml === '500')
+let busquedaFilter = tienda.filter((bebidasObj) => bebidasObj.categoria === 'Bodega Cattena')
 let busquedaFind = tienda.find((bebidaObj) => bebidaObj.nombre === 'Dv Cattena')
 let busquedaFind2 = tienda.find((bebidaObj) => bebidaObj.nombre === 'Las Moras')
 
-console.log(busquedaFind);
-console.log(busquedaFind2);
-console.log(busquedaFilter);
-console.log(busquedaFilter2);
-console.table(tienda)
+const sectionProducts = document.querySelector('#sectionProducts');
+const divProducts = document.createElement('div');
+sectionProducts.appendChild(divProducts);
+divProducts.classList.add('products');
 
 
+for (const bebida of tienda) {
+    let articulo = document.createElement('div');
+    articulo.classList.add('col-md-4');
+    articulo.innerHTML = `
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">${bebida.nombre}</h3>
+                <h5 class="card-subtitle mb-2 text-muted">Categoria: ${bebida.categoria}</h5>
+                <p class="card-text">Codigo: ${bebida.codigo}</p>
+                <h4 class="card-title">Precio: $${bebida.precioVenta}</h4>
+                <input class="${bebida.codigo}" type="button" value="Detalle">
+            </div>
+        </div>
+    `;
+    divProducts.appendChild(articulo);
+}
 

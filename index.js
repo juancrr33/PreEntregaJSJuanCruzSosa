@@ -35,11 +35,9 @@ divProducts.classList.add('products');
 
 const carrito = [];
 const botonCarrito = document.getElementById('botonCarrito');
-botonCarrito.onclick = () => {
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-};
 
-for (const bebida of tienda) {
+
+for (const [index, bebida] of tienda.entries()) {
     let articulo = document.createElement('div');
     articulo.classList.add('col-md-4');
     articulo.innerHTML = `
@@ -49,22 +47,26 @@ for (const bebida of tienda) {
                 <h5 class="card-subtitle mb-2 text-muted">Categoria: ${bebida.categoria}</h5>
                 <p class="card-text">Codigo: ${bebida.codigo}</p>
                 <h4 class="card-title">Precio: $${bebida.precioVenta}</h4>
-                <input class="${bebida.codigo}" type="button" value="Detalle">
+                <input class="detalle-button-${index}" type="button" value="Detalle">
             </div>
         </div>
     `;
     divProducts.appendChild(articulo);
-}
+    const detalleButton = articulo.querySelector(`.detalle-button-${index}`);
+    detalleButton.addEventListener('click', () => {
+        const productosEnCarrito = JSON.parse(localStorage.getItem("productosEnCarrito")) || [];
+        const carrito = { id: index, nombre: bebida.nombre, categoria: bebida.categoria, bebida: bebida.codigo, precioVenta: bebida.precioVenta }
+        productosEnCarrito.push(carrito);
+        localStorage.setItem("productosEnCarrito", JSON.stringify(productosEnCarrito));
+        Swal.fire({
+            title: 'Este producto se ha agregado al carrito',
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            }
+        })
 
-document.addEventListener('DOMContentLoaded', () => {
-    const listaCarrito = document.getElementById('listaCarrito');
-    const carritoStorage = localStorage.getItem('carrito');
-    if (carritoStorage) {
-        const carrito = JSON.parse(carritoStorage);
-        carrito.forEach(bebida => {
-            const nuevoItem = document.createElement('li');
-            nuevoItem.textContent = `Bebida: ${bebida.nombre}, Código: ${bebida.codigo}, Precio: ${bebida.precioVenta} USD`;
-            listaCarrito.appendChild(nuevoItem);
-        });
-    }
-});
+    });
+};

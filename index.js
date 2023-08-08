@@ -1,19 +1,20 @@
 const tienda = []
-function Bebidas(nombre, codigo, categoria, precioVenta, marca, ml) {
+function Bebidas(nombre, codigo, categoria, precioVenta, marca, ml, img) {
     this.nombre = nombre;
     this.codigo = codigo;
     this.categoria = categoria;
     this.precioVenta = precioVenta;
     this.marca = marca;
     this.ml = ml;
+    this.img = img
 
 }
 
-let vinoCattena = new Bebidas('Dv Cattena', '0001', 'vinos', 6500, 'Bodega Cattena', '750')
+let vinoCattena = new Bebidas('Dv Cattena', '0001', 'vinos', 6500, 'Bodega Cattena', '750',)
 let vinoGranEnemigo = new Bebidas('Gran Enemigo', '0002', 'vinos', 4500, 'Bodega Cattena', '750')
-let vinoAngelica = new Bebidas('Angelica', '0003', 'vinos', 10000, 'Bodega Cattena', '750')
+let vinoAngelica = new Bebidas('Angelica', '0003', 'vinos', 10000, 'Bodega Cattena', '750',)
 let vinoNicolasCattena = new Bebidas('Nicolas Cattena', '0004', 'vinos', 8500, 'Bodega Cattena', '750')
-let vinoAlamos = new Bebidas('Alamos', '0005', 'vinos', 3500, 'Bodega Cattena', '750')
+let vinoAlamos = new Bebidas('Alamos', '0005', 'vinos', 3500, 'Bodega Cattena', '750', './img/catena')
 let cervezaStellaR = new Bebidas('Stella rubia x6', '0006', 'cerveza', 3000, 'Stella Bebidas', '500')
 let cervezaStellaN = new Bebidas('Stella Negra x6', '0007', 'cerveza', 3000, 'Stella Bebidas', '500')
 let cervezaHeinekenR = new Bebidas('Heineken Rubia x6', '0008', 'cerveza', 3300, 'Heineken Bebidas', '500')
@@ -41,16 +42,20 @@ for (const [index, bebida] of tienda.entries()) {
     let articulo = document.createElement('div');
     articulo.classList.add('col-md-4');
     articulo.innerHTML = `
-        <div class="card">
+        <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h3 class="card-title">${bebida.nombre}</h3>
-                <h5 class="card-subtitle mb-2 text-muted">Categoria: ${bebida.categoria}</h5>
-                <p class="card-text">Codigo: ${bebida.codigo}</p>
-                <h4 class="card-title">Precio: $${bebida.precioVenta}</h4>
+                <ul class="list-group list-group-flush">
+    <li class="list-group-item">Categoria: ${bebida.categoria}</li>
+    <li class="list-group-item">Precio: $${bebida.precioVenta}</li>
+    <li class="list-group-item">${bebida.codigo}</li>
+                </ul>
+                <div class="card-body">
                 <input class="detalle-button-${index}" type="button" value="Detalle">
-            </div>
-        </div>
-    `;
+                </div>
+`;
+
+
     divProducts.appendChild(articulo);
     const detalleButton = articulo.querySelector(`.detalle-button-${index}`);
     detalleButton.addEventListener('click', () => {
